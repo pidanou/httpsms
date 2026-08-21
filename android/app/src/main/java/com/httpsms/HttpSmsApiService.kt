@@ -28,9 +28,8 @@ class HttpSmsApiService(private val apiKey: String, private val baseURL: URI) {
         .addInterceptor { chain ->
             val request = chain.request()
             val startMs = System.currentTimeMillis()
-            Timber.d("api request -> ${request.method} ${request.url}")
             val response = chain.proceed(request)
-            Timber.d("api response <- ${request.method} ${request.url} [${response.code}] in ${System.currentTimeMillis() - startMs}ms")
+            Timber.d("api ${request.method} ${request.url} -> ${response.code} in ${System.currentTimeMillis() - startMs}ms")
             response
         }
         .build()
