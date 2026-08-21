@@ -7,6 +7,7 @@ import android.os.Build
 import android.telephony.SubscriptionManager
 import android.telephony.TelephonyManager
 import android.webkit.URLUtil
+import com.httpsms.BuildConfig
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -163,7 +164,7 @@ class LoginViewModel : ViewModel() {
                 return@launch
             }
 
-            if (!URLUtil.isHttpsUrl(serverUrl)) {
+            if (!BuildConfig.DEBUG && !URLUtil.isHttpsUrl(serverUrl)) {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
                     serverUrlError = "Server URL [$serverUrl] must be HTTPS"

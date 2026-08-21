@@ -42,8 +42,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.httpsms.R
-import com.httpsms.ui.theme.Blue500
-import com.httpsms.ui.theme.Pink500
 import java.util.Locale
 
 @Composable
@@ -98,7 +96,7 @@ fun MainScreen(
                     Button(
                         onClick = onSmsPermissionClick,
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                         contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
                     ) {
                         Text(
@@ -120,7 +118,7 @@ fun MainScreen(
                     Button(
                         onClick = onBatteryOptimizationClick,
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        colors = ButtonDefaults.buttonColors(containerColor = Pink500),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error),
                         contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
                     ) {
                         Icon(
@@ -149,13 +147,13 @@ fun MainScreen(
                 onClick = onHeartbeatClick,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isHeartbeatLoading,
-                colors = ButtonDefaults.buttonColors(containerColor = Blue500),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Favorite,
                     contentDescription = null,
-                    tint = if (uiState.isHeartbeatLoading) LocalContentColor.current else Pink500
+                    tint = if (uiState.isHeartbeatLoading) LocalContentColor.current else MaterialTheme.colorScheme.onPrimary
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -170,7 +168,7 @@ fun MainScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 4.dp),
-                    color = Pink500
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }
@@ -188,7 +186,7 @@ fun MainScreen(
 
         Button(
             onClick = onSettingsClick,
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Icon(Icons.Default.Settings, contentDescription = null, tint = Color.White)
@@ -227,7 +225,7 @@ fun PhoneCard(
                     Icon(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = "Active",
-                        tint = Color(0xFF70AB5C),
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                 }

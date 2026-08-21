@@ -19,11 +19,14 @@ import androidx.compose.runtime.getValue
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import com.google.firebase.messaging.FirebaseMessaging
 import com.httpsms.ui.login.LoginScreen
 import com.httpsms.ui.login.LoginViewModel
 import com.httpsms.ui.theme.HttpSmsTheme
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
+import org.json.JSONException
+import org.json.JSONObject
 import timber.log.Timber
 
 class LoginActivity : AppCompatActivity() {
@@ -32,7 +35,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         redirectToMain()
-        
+
+        // FCM only calls onNewToken() when a token is first generated; if Play Services
+        // already cached one (e.g. from a previous install), fetch it directly so login
+        // isn't blocked waiting for a callback that will never fire.
+        if (Settings.getFcmToken(this) == null) {
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Settings.setFcmTokenAsync(this, task.result)
+                } else {
+                    Timber.e(task.exception, "failed to fetch FCM token")
+                }
+            }
+        }
+
         viewModel.initialize(this, getString(R.string.default_server_url))
 
         setContent {
@@ -42,6 +58,12 @@ class LoginActivity : AppCompatActivity() {
                 LaunchedEffect(uiState.loginSuccess) {
                     if (uiState.loginSuccess) {
                         redirectToMain()
+                    }
+                }
+
+                LaunchedEffect(uiState.serverUrlError) {
+                    uiState.serverUrlError?.let {
+                        Toast.makeText(this@LoginActivity, it, Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -76,8 +98,15 @@ class LoginActivity : AppCompatActivity() {
 
     private val barcodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents != null) {
-            viewModel.onApiKeyChange(result.contents)
-            Toast.makeText(this, "Scanned: ${result.contents}", Toast.LENGTH_LONG).show()
+            try {
+                val json = JSONObject(result.contents)
+                viewModel.onApiKeyChange(json.getString("api_key"))
+                viewModel.onPhoneNumberSIM1Change(json.getString("phone_number"))
+                Toast.makeText(this, "QR code scanned", Toast.LENGTH_SHORT).show()
+            } catch (e: JSONException) {
+                Timber.e(e, "Invalid QR code content: ${result.contents}")
+                Toast.makeText(this, "Invalid QR code", Toast.LENGTH_LONG).show()
+            }
         } else {
             Toast.makeText(this, "Scan cancelled", Toast.LENGTH_SHORT).show()
         }
@@ -159,6 +188,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun redirectToMain() {
         if (!Settings.isLoggedIn(this)) {
+            Toast.makeText(this, "Login succeeded but isLoggedIn() is false — not redirecting", Toast.LENGTH_LONG).show()
             return
         }
         finish()

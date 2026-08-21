@@ -42,8 +42,6 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.httpsms.R
-import com.httpsms.ui.theme.Blue500
-import com.httpsms.ui.theme.Pink500
 
 @Composable
 fun LoginScreen(
@@ -80,7 +78,7 @@ fun LoginScreen(
                 append(text.substring(0, startIndex))
 
                 pushStringAnnotation(tag = "URL", annotation = "https://httpsms.com/settings")
-                withStyle(style = SpanStyle(color = Blue500, fontWeight = FontWeight.Bold)) {
+                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold)) {
                     append(linkText)
                 }
                 pop()
@@ -167,30 +165,13 @@ fun LoginScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
-
-        OutlinedTextField(
-            value = uiState.serverUrl,
-            onValueChange = { viewModel.onServerUrlChange(it) },
-            label = { Text(stringResource(id = R.string.server_url)) },
-            placeholder = { Text(stringResource(id = R.string.login_server_url_hint)) },
-            modifier = Modifier.fillMaxWidth(),
-            isError = uiState.serverUrlError != null,
-            supportingText = uiState.serverUrlError?.let { { Text(it) } },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Uri,
-                imeAction = ImeAction.Done
-            ),
-            enabled = !uiState.isLoading
-        )
-
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = onLoginClick,
             enabled = !uiState.isLoading,
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(containerColor = Blue500),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 16.dp)
         ) {
             Icon(
@@ -210,7 +191,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(16.dp))
             CircularProgressIndicator(
                 modifier = Modifier.size(24.dp),
-                color = Pink500
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }
