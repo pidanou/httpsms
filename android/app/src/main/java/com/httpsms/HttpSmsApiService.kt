@@ -23,7 +23,17 @@ class HttpSmsApiService(private val apiKey: String, private val baseURL: URI) {
     private val apiKeyHeader = "x-api-key"
     private val clientVersionHeader = "X-Client-Version"
     private val jsonMediaType = "application/json; charset=utf-8".toMediaType()
-    private val client = OkHttpClient.Builder().retryOnConnectionFailure(true).build()
+    private val client = OkHttpClient.Builder()
+        .retryOnConnectionFailure(true)
+        .addInterceptor { chain ->
+            val request = chain.request()
+            val startMs = System.currentTimeMillis()
+            Timber.d("api request -> ${request.method} ${request.url}")
+            val response = chain.proceed(request)
+            Timber.d("api response <- ${request.method} ${request.url} [${response.code}] in ${System.currentTimeMillis() - startMs}ms")
+            response
+        }
+        .build()
 
     init {
         getLogger(OkHttpClient::class.java.name).level = Level.FINE
