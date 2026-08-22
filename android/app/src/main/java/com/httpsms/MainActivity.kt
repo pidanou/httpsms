@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                     viewModel = viewModel,
                     onSettingsClick = { onSettingsClick() },
                     onSmsPermissionClick = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://httpsms.com/blog/grant-send-and-read-sms-permissions-on-android"))
+                        val intent = Intent(ProviderSettings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        intent.data = Uri.parse("package:$packageName")
                         startActivity(intent)
                     },
                     onBatteryOptimizationClick = {

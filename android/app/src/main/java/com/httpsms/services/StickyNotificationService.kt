@@ -65,8 +65,8 @@ class StickyNotificationService: Service() {
         )
 
         return builder
-            .setContentTitle("httpSMS Listener")
-            .setContentText("httpSMS is listening for sent and received SMS messages in the background.")
+            .setContentTitle("Wayqast Gateway")
+            .setContentText("Wayqast is listening for sent and received SMS messages in the background.")
             .setContentIntent(pendingIntent)
             .setOngoing(true)
             .setSmallIcon(R.drawable.ic_stat_name)
