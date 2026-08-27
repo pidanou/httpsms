@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Wayqast Gateway</string>
+    <string name="nextRefreshTime">23/06/2022 18:58:30</string>
+    <string name="menuIconDescription">Icône de menu</string>
+    <string name="menuIconName">Plus</string>
+    <string name="notification_channel_default">com.wayqast.gateway.notification.default</string>
+    <string name="sign_in_button">Se connecter avec une clé API</string>
+    <string name="text_area_api_key">Clé API</string>
+    <string name="img_wayqast_logo">Logo Wayqast</string>
+    <string name="get_your_api_key">Récupérez votre clé API sur\napp.wayqast.com</string>
+    <string name="main_log_out">Se déconnecter</string>
+    <string name="login_phone_number_hint">ex. +18005550199 (format international)</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="send_heartbeat">Envoyer un battement</string>
+    <string name="default_server_url">https://api.wayqast.com/gateway</string>
+    <string name="app_version">wayqast.com - %s</string>
+    <string name="disable_battery_optimization">Désactiver l\'optimisation de la batterie</string>
+    <string name="enable_sms_permission">Activer l\'autorisation SMS</string>
+    <string name="main_app_settings">Paramètres de l\'application</string>
+    <string name="settings_sim1">SIM1</string>
+    <string name="settings_sim_2">SIM2</string>
+    <string name="settings_outgoing_messages_sim1">Activer l\'envoi de SMS sur la SIM1</string>
+    <string name="settings_incoming_messages_sim1">Activer la réception de SMS sur la SIM1</string>
+    <string name="settings_incoming_messages_sim2">Activer la réception de SMS sur la SIM2</string>
+    <string name="settings_outgoing_messages_sim2">Activer l\'envoi de SMS sur la SIM2</string>
+    <string name="login_phone_number_sim1">Numéro de téléphone (SIM1)</string>
+    <string name="login_phone_number_sim2">Numéro de téléphone (SIM2)</string>
+    <string name="encryption_key">Clé de chiffrement</string>
+    <string name="encrypt_received_messages">Chiffrer les messages reçus</string>
+    <string name="enable_debug_logs">Activer les journaux de débogage</string>
+    <string name="enable_incoming_call_events_sim1">Activer les événements d\'appels manqués SIM1</string>
+    <string name="enable_sim2_incoming_call_events">Activer les événements d\'appels manqués SIM2</string>
+    <string name="cd_back">Retour</string>
+    <string name="cd_scan_qr_code">Scanner le QR code</string>
+    <string name="cd_active">Actif</string>
+</resources>

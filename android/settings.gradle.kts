@@ -15,5 +15,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "httpSMS"
+rootProject.name = "Wayqast"
 include(":app")
