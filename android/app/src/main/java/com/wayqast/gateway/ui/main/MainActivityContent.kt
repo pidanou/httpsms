@@ -65,7 +65,7 @@ fun MainScreen(
 
         Image(
             painter = painterResource(id = R.drawable.logo_cropped),
-            contentDescription = stringResource(id = R.string.img_http_sms_logo),
+            contentDescription = stringResource(id = R.string.img_wayqast_logo),
             modifier = Modifier
                 .width(147.dp)
                 .height(92.dp)
