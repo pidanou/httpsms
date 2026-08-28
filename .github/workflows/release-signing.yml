@@ -37,12 +37,15 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
         run: ./gradlew :app:assembleRelease --no-daemon
 
+      - name: Rename APK
+        run: mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/wayqast.apk
+
       - name: Publish to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
-          APK: android/app/build/outputs/apk/release/app-release.apk
+          APK: android/app/build/outputs/apk/release/wayqast.apk
         run: |
-          gh release create "$GITHUB_REF_NAME" "$APK#wayqast.apk" \
+          gh release create "$GITHUB_REF_NAME" "$APK" \
             --repo "$GITHUB_REPOSITORY" \
             --title "Gateway app $GITHUB_REF_NAME" \
             --notes "Automated build from $GITHUB_SHA"
